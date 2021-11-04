@@ -1,0 +1,9 @@
+{
+  "name": "data-manager",
+  "version": "1.0.0",
+  "dependencies": {
+    "mysql-connector-java": "8.0.26"
+  },
+  "author": "Juan Carlos Mamani",
+  "license": "ISC"
+}

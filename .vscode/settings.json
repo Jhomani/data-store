@@ -1,0 +1,14 @@
+{
+  "java.project.referencedLibraries": {
+      "include": [
+          "libs/*.jar",
+          // "/home/username/lib/foo.jar"
+      ],
+      "exclude": [
+          // "library/sources/**"
+      ],
+      // "sources": {
+      //     "library/bar.jar": "library/sources/bar-src.jar"
+      // }
+  }
+}
