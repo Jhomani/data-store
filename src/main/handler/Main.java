@@ -6,6 +6,14 @@ public class Main {
     Datas d = new Datas("CArlos", "Mamani", 14);
     String[] values= d.getDatas(d);
 
+    IntoFile<Datas> test = new IntoFile<>("./test.txt");
+
+    try {
+      test.insertTuple(d);
+    } catch(Exception e) {
+
+    }
+
     for(String v: values) {
       System.out.println(v);
     }

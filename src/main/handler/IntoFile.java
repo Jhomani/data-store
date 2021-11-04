@@ -11,18 +11,31 @@ public class IntoFile<T> {
     suportFiles = new String[]{"csv", "txt", ""};
   }
 
-  public void writeData(T models) throws IOException {
+  public void insertTuple(T models) throws IOException {
      FileWriter file = null;
      PrintWriter pw = null;
 
     file = new FileWriter(path,true);   
     pw = new PrintWriter(file);                  
-                                                        
-    for (double i = 0; i < 1000; i++)               
-      pw.println("Linea " + i);
+
+
+    if(isEmpty()) {
+      // intertar la cabesera
+    } else {
+      // inter value
+    }
+
+    // for (double i = 0; i < 1000; i++)               
+    //   pw.println("Linea " + i);
 
     file.close();
   }                                                       
+
+  public boolean isEmpty() throws IOException {
+    return true;
+  }                                                       
+
+
 
 
   public void readDatas() throws IOException, FileNotFoundException {
