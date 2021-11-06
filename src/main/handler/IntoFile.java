@@ -1,6 +1,7 @@
 package handler;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class IntoFile<T> {
   private String[] suportFiles;
@@ -11,48 +12,109 @@ public class IntoFile<T> {
     suportFiles = new String[]{"csv", "txt", ""};
   }
 
-  public void insertTuple(T models) throws IOException {
-     FileWriter file = null;
-     PrintWriter pw = null;
+  public void insertTuple(SuperData model) throws IOException {
+    String header;
+    String[] valuesVec;
+    String values;
+    FileWriter file;
+    PrintWriter pw;
 
-    file = new FileWriter(path,true);   
-    pw = new PrintWriter(file);                  
+    valuesVec = model.getValues(model);
+    values = stringify(valuesVec); 
 
+    header = isEmpty(model);
 
-    if(isEmpty()) {
-      // intertar la cabesera
+    if(header != null) {
+      file = new FileWriter(path);   
+
+      file.write(header + "\n" + values+"\n");
     } else {
-      // inter value
-    }
+      file = new FileWriter(path, true);   
+      pw = new PrintWriter(file);                  
 
-    // for (double i = 0; i < 1000; i++)               
-    //   pw.println("Linea " + i);
+      pw.println(values);
+    }
 
     file.close();
   }                                                       
 
-  public boolean isEmpty() throws IOException {
-    return true;
+  public String stringify(String[] vector) {
+    String res = vector[0]; 
+
+    for(int i=1; i < vector.length; i++)
+      res += ", " + vector[i];
+
+    return res;
+  }
+
+  public String isEmpty(SuperData model) throws IOException {
+    String[] header = model.getHeader(model);
+    String firstLine = getFirstLine();
+    String res = stringify(header);
+
+    if(res.equals(firstLine))
+      res = null;
+
+    return res;
   }                                                       
 
-
-
-
-  public void readDatas() throws IOException, FileNotFoundException {
-    File file;
+  public String getFirstLine() throws IOException, FileNotFoundException {
     BufferedReader buffer;
     FileReader input; 
-    String line;
+    File file;
+    String res;
 
     file = new File(path);
     input = new FileReader(file);
     buffer = new BufferedReader(input);
 
-    do {
-      line = buffer.readLine();
-    } while(line != null);
+    res = buffer.readLine();
 
     buffer.close();
+
+    return res;
+  }
+
+  public boolean resetFile() throws IOException {
+    boolean res = false;
+    File file;
+
+    file = new File(path);
+
+    if(file.delete()) {
+      file = new File(path);
+      file.createNewFile();
+
+      res = true;
+    }
+
+    return res;
+  }
+
+  public void readDatas() throws IOException, FileNotFoundException {
+    String line = "";
+    // BufferedReader buffer;
+    // FileReader input; 
+    File file;
+
+    file = new File(path);
+    Scanner reader = new Scanner(file);
+    // input = new FileReader(file);
+    // buffer = new BufferedReader(input);
+
+    while (reader.hasNextLine()) {
+      line = reader.nextLine();
+    }
+
+    System.out.println(line);
+
+    // do {
+    //   // line = buffer.readLine();
+    //   System.out.println(line);
+    // } while(line != null);
+
+    // buffer.close();
+    reader.close();
   }
 
   public void setPath(String path) {

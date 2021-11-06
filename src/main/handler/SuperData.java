@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 abstract public class SuperData {
 
-  public <T> String[] getDatas(T klazz) {
+  public <T> String[] getValues(T klazz) {
     Field[] fields = klazz.getClass().getDeclaredFields();
     ArrayList<String> values = new ArrayList<>();
 
@@ -23,5 +23,25 @@ abstract public class SuperData {
     String[] arrValues = new String[values.size()];
 
     return values.toArray(arrValues);
+  }
+
+  public <T> String[] getHeader(T klazz) {
+    Field[] fields = klazz.getClass().getDeclaredFields();
+    ArrayList<String> header = new ArrayList<>();
+
+    try {
+      for (Field field : fields) {
+        int accMod = field.getModifiers();
+
+        if(accMod != 2)
+          header.add(field.getName());
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
+    String[] arrHead = new String[header.size()];
+
+    return header.toArray(arrHead);
   }
 }
