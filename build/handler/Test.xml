@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Personas>
+	<persona>
+		<nombre>Carlos</nombre>
+    <lastName>Ramon</lastName>
+    <tel>Ramon</tel>
+	</persona>
+	<persona>
+		<nombre>Carlos</nombre>
+    <lastName>Ramon</lastName>
+    <tel>Ramon</tel>
+	</persona>
+	<persona>
+		<nombre>Carlos</nombre>
+    <lastName>Ramon</lastName>
+    <tel>Ramon</tel>
+	</persona>
+</Personas>

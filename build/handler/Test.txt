@@ -1,3 +1,7 @@
-name, lastName, years, date
-CArlos, Mamani, 0.0, 0.0
-CArlos, Mamani, 0.0, 0.0
+name, lastName, years
+Carlos, Mamani, 14
+Ramiro, Ramirez, 30
+Tomas, Ramirez, 30
+Tomas, Ramirez, 30
+Tomas, Ramirez, 30
+Tomas, Ramirez, 30

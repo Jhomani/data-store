@@ -4,12 +4,10 @@ import java.io.*;
 import java.util.Scanner;
 
 public class IntoFile<T> {
-  private String[] suportFiles;
   private String path;
   
   public IntoFile (String path) {
     this.path = path; 
-    suportFiles = new String[]{"csv", "txt", ""};
   }
 
   public void insertTuple(SuperData model) throws IOException {
@@ -20,7 +18,7 @@ public class IntoFile<T> {
     PrintWriter pw;
 
     valuesVec = model.getValues(model);
-    values = stringify(valuesVec); 
+    values = Utils.stringify(valuesVec); 
 
     header = isEmpty(model);
 
@@ -38,21 +36,13 @@ public class IntoFile<T> {
     file.close();
   }                                                       
 
-  public String stringify(String[] vector) {
-    String res = vector[0]; 
-
-    for(int i=1; i < vector.length; i++)
-      res += ", " + vector[i];
-
-    return res;
-  }
 
   public String isEmpty(SuperData model) throws IOException {
     String[] header = model.getHeader(model);
     String firstLine = getFirstLine();
-    String res = stringify(header);
+    String res = Utils.stringify(header);
 
-    if(res.equals(firstLine))
+    if(res.equals(firstLine)) 
       res = null;
 
     return res;
@@ -91,30 +81,23 @@ public class IntoFile<T> {
     return res;
   }
 
-  public void readDatas() throws IOException, FileNotFoundException {
+  public T readData(Class<T> klazz) throws IOException, FileNotFoundException {
     String line = "";
-    // BufferedReader buffer;
-    // FileReader input; 
     File file;
+    T res = null;
 
     file = new File(path);
     Scanner reader = new Scanner(file);
-    // input = new FileReader(file);
-    // buffer = new BufferedReader(input);
 
-    while (reader.hasNextLine()) {
+
+    while (reader.hasNextLine())
       line = reader.nextLine();
-    }
 
     System.out.println(line);
 
-    // do {
-    //   // line = buffer.readLine();
-    //   System.out.println(line);
-    // } while(line != null);
-
-    // buffer.close();
     reader.close();
+
+    return res;
   }
 
   public void setPath(String path) {
