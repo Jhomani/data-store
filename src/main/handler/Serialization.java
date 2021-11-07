@@ -42,7 +42,7 @@ public class Serialization<T> {
     int count = 1;
 		
 		if (entrada != null) {
-      while(d != null && count == numTuple) { // numtuple = 2;
+      while(d != null && count == numTuple) {
         d = (T) entrada.readObject();
         count++;
       }

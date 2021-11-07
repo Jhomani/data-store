@@ -25,19 +25,21 @@ abstract public class SuperData {
     return values.toArray(arrValues);
   }
 
-  public <T> String[] getHeader(T klazz) {  // {"name", "lastName"....}
-    Field[] fields = klazz.getClass().getDeclaredFields();
+  public <T> String[] getHeader(T model) { 
+    Class<?> klazz = model.getClass();
+    
+    return getHeader(klazz);
+  }
+  
+  public <T> String[] getHeader(Class<T> klazz) { 
+    Field[] fields = klazz.getDeclaredFields();
     ArrayList<String> header = new ArrayList<>();
 
-    try {
-      for (Field field : fields) {
-        int accMod = field.getModifiers();
+    for (Field field : fields) {
+      int accMod = field.getModifiers();
 
-        if(accMod != 2)
-          header.add(field.getName());
-      }
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
+      if(accMod != 2)
+        header.add(field.getName());
     }
 
     String[] arrHead = new String[header.size()];
@@ -45,23 +47,4 @@ abstract public class SuperData {
     return header.toArray(arrHead);
   }
   
-  public <T> String[] getHeader(Class<T> klazz) { 
-    Field[] fields = klazz.getDeclaredFields();
-    ArrayList<String> header = new ArrayList<>();
-
-    try {
-      for (Field field : fields) {
-        int accMod = field.getModifiers();
-
-        if(accMod != 2)
-          header.add(field.getName());
-      }
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
-
-    String[] arrHead = new String[header.size()];
-
-    return header.toArray(arrHead);
-  }
 }

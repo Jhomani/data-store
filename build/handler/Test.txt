@@ -1,7 +1,4 @@
 name, lastName, years
+Tomas, Ramirez, 30
 Carlos, Mamani, 14
-Ramiro, Ramirez, 30
-Tomas, Ramirez, 30
-Tomas, Ramirez, 30
-Tomas, Ramirez, 30
-Tomas, Ramirez, 30
+Roberto, Santos, 30

@@ -3,7 +3,7 @@ package handler;
 import java.io.*;
 import java.util.Scanner;
 
-public class IntoFile<T> {
+public class IntoFile {
   private String path;
   
   public IntoFile (String path) {
@@ -81,21 +81,54 @@ public class IntoFile<T> {
     return res;
   }
 
-  public T readData(Class<T> klazz) throws IOException, FileNotFoundException {
+  public <T> T readData(
+    Class<T> klazz
+  ) throws IOException, FileNotFoundException {
     String line = "";
     File file;
     T res = null;
+    int lines = 0;
 
     file = new File(path);
     Scanner reader = new Scanner(file);
 
-
-    while (reader.hasNextLine())
+    while (reader.hasNextLine()) {
       line = reader.nextLine();
-
-    System.out.println(line);
+      lines++;
+    }
 
     reader.close();
+
+    if(lines > 1) res = Utils.toObjectInstace(klazz, line);
+
+    return res;
+  }
+
+  public <T> T readData(
+    Class<T> klazz, int nLine
+  ) throws IOException, FileNotFoundException {
+    String line = "";
+    File file;
+    T res = null;
+
+    if(nLine > 0) {
+      int lines = 0;
+      file = new File(path);
+      Scanner reader = new Scanner(file);
+
+      nLine++;
+
+      while(reader.hasNextLine()) {
+        lines++;
+        line = reader.nextLine();
+
+        if(lines == nLine) break;
+      }
+
+      reader.close();
+
+      if(lines > 1) res = Utils.toObjectInstace(klazz, line);
+    }
 
     return res;
   }
