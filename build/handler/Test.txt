@@ -2,3 +2,5 @@ name, lastName, years
 Tomas, Ramirez, 30
 Carlos, Mamani, 14
 Roberto, Santos, 30
+Antonio, Mamani, 14
+Luis, Ramirez, 30

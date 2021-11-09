@@ -1,0 +1,17 @@
+<?xml version="1.0" 	?>
+<!DOCTYPE People SYSTEM "libro.dtd">
+<People>
+	<person>
+		<name>Carlos</name>
+		<lastName>Mamani</lastName>
+	</person>
+	<person>
+		<name>Romeo</name>
+		<lastName>Santos</lastName>
+	</person>
+	<person>
+		<name>Antonio</name>
+		<lastName>Romero</lastName>
+	</person>
+</People>
+

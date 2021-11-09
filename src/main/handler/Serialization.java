@@ -1,4 +1,3 @@
-
 package handler;
 
 import java.io.*;
@@ -15,17 +14,18 @@ public class Serialization<T> {
   }
 	
   @SuppressWarnings("unchecked")
-	public T readData() {
+	public T readData() throws IOException {
 		T d = null;
 		
     try {
       abrirentrada();
 
-      while(true)
-        d = (T) entrada.readObject();
+      while(true) {
+				 d = (T) entrada.readObject();
+				 System.out.println(d + ">> ");
+			}
     } 
-    catch(EOFException e) { } 
-    catch(IOException e) { } 
+    catch(EOFException e) {} 
     catch(ClassNotFoundException e) { }
 
     try {
@@ -36,27 +36,32 @@ public class Serialization<T> {
 	}
 
   @SuppressWarnings("unchecked")
-	public T readData(int numTuple) throws IOException, ClassNotFoundException {
-    T aux = null;
+	public T readData(int nLine) throws IOException {
 		T d = null;
-    int count = 1;
+		int count = 0;
 		
-		if (entrada != null) {
-      while(d != null && count == numTuple) {
-        d = (T) entrada.readObject();
-        count++;
-      }
+		if(nLine > 0) {
+			try {
+				abrirentrada();
 
-      aux = (T) entrada.readObject();
+				while(nLine != count) {
+					d = (T) entrada.readObject();
+					count++;
+				}
+			} 
+			catch(EOFException e) { System.out.println(e.getMessage()); } 
+			catch(ClassNotFoundException e) { System.out.println(e.getMessage());}
 
-      if(aux == null) aux = d;
-    }
+			try {
+				cerrarentrada();
+			} catch(IOException e){}
+		}
 
-		return aux;
+		return d;
 	}
 	
 	public void abrirsalida() throws IOException {
-		archivosalida = new FileOutputStream(path);
+		archivosalida = new FileOutputStream(path, true);
 		// archivosalida = new FileOutputStream("ejemplo.txt", false);  to add more data
 		salida = new ObjectOutputStream(archivosalida);
 	}
@@ -67,7 +72,10 @@ public class Serialization<T> {
 	}
 	
 	public void cerrarsalida() throws IOException {
-		if (salida!=null) salida.close();
+		if (salida!=null) {
+			archivosalida.close();
+			salida.close();
+		} 
 	}
 	
 	public void cerrarentrada() throws IOException {

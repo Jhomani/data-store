@@ -10,7 +10,7 @@ public class IntoFile {
     this.path = path; 
   }
 
-  public void insertTuple(SuperData model) throws IOException {
+  public void saveData(SuperData model) throws IOException {
     String header;
     String[] valuesVec;
     String values;

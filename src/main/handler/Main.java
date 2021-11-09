@@ -3,17 +3,17 @@ import java.lang.reflect.*;
 
 public class Main {
   public static void main(String[] args) {
-    Datas d = new Datas("Carlos", "Mamani", 14);
-    Datas r = new Datas("Tomas", "Ramirez", 30);
+    Datas d = new Datas("Antonio", "Mamani", 14);
+    Datas r = new Datas("Luis", "Ramirez", 30);
 
     IntoFile test = new IntoFile("/home/jhomani/Projects/java/data-manager/build/handler/Test.txt");
 
     try {
-      // test.insertTuple(d);
-      // test.insertTuple(r);
-      Datas lastO = test.readData(Datas.class, 100);
+      // test.saveData(d);
+      // test.saveData(r);
+      // Datas lastO = test.readData(Datas.class);
       // Datas naw= inspect(Datas.class);
-      System.out.println(lastO.name + " " + lastO.lastName + " " +lastO.years);
+      // System.out.println(lastO.name + " " + lastO.lastName + " " +lastO.years);
     } catch(Exception e) {
       System.out.println(e.getMessage());
     }
@@ -24,16 +24,20 @@ public class Main {
   //     Serialization<Persona> ser= new Serialization<>("/home/jhomani/Projects/java/data-manager/build/handler/Persona.txt");
 
   //     try {
-  //         //Permite escribir informaci�n en el archivo
-  //         // Datos2 dato = new Datos2("232","Ramon","Rivero");
-  //         // ser.saveObject(dato);
+  //         // Permite escribir informaci�n en el archivo
+  //         // Persona per = new Persona("232","Ramon","Rivero");
+  //         Persona per4 = new Persona("42345","Antonio","Volanos");
+  //         Persona per5 = new Persona("i4354","Ramon","Ramos");
+  //         ser.saveObject(per4);
+  //         ser.saveObject(per5);
+  //         // ser.saveObject(per2);
 
   //         // System.out.println("Dos registros escritos en la BD\n");
 
   //         // Leer los registros del Archivo
   //         Persona d;
   //         d = ser.readData();
-  //         System.out.println(d.apellido + " " + d.nombre);
+  //         System.out.println(d.nombre + " " + d.apellido);
 
   //     } catch (Exception e) {
   //       System.out.println(e + "   Into Error");
