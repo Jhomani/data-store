@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 abstract public class SuperData {
-
   public <T> String[] getValues(T klazz) {
     Field[] fields = klazz.getClass().getDeclaredFields();
     ArrayList<String> values = new ArrayList<>();

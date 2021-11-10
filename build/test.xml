@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<People>
+        
+    <datas>
+                
+        <name>Carlos</name>
+                
+        <lastName>Mamani</lastName>
+            
+    </datas>
+        
+    <datas>
+                
+        <name>Romeo</name>
+                
+        <lastName>Santos</lastName>
+            
+    </datas>
+        
+    <datas>
+                
+        <name>Antonio</name>
+                
+        <lastName>Romero</lastName>
+            
+    </datas>
+        
+    <datas>
+                
+        <name>Juan</name>
+                
+        <lastName>Romero</lastName>
+            
+    </datas>
+        
+    <datas>
+                
+        <name>Juan</name>
+                
+        <lastName>Romero</lastName>
+                
+        <age>33</age>
+            
+    </datas>
+    
+    <datas>
+        <name>Ramon</name>
+        <lastName>Rojas</lastName>
+        <years>45</years>
+    </datas>
+</People>

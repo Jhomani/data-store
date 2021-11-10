@@ -12,13 +12,17 @@ public class Serialization<T> {
   public Serialization(String path) {
     this.path = path;
   }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
 	
   @SuppressWarnings("unchecked")
 	public T readData() throws IOException {
 		T d = null;
 		
     try {
-      abrirentrada();
+      openInput();
 
       while(true) {
 				 d = (T) entrada.readObject();
@@ -29,7 +33,7 @@ public class Serialization<T> {
     catch(ClassNotFoundException e) { }
 
     try {
-      cerrarentrada();
+      closeInput();
     } catch(IOException e){}
 
 		return d;
@@ -42,7 +46,7 @@ public class Serialization<T> {
 		
 		if(nLine > 0) {
 			try {
-				abrirentrada();
+				openInput();
 
 				while(nLine != count) {
 					d = (T) entrada.readObject();
@@ -53,38 +57,37 @@ public class Serialization<T> {
 			catch(ClassNotFoundException e) { System.out.println(e.getMessage());}
 
 			try {
-				cerrarentrada();
+				closeInput();
 			} catch(IOException e){}
 		}
 
 		return d;
 	}
 	
-	public void abrirsalida() throws IOException {
+	public void openOutput() throws IOException {
 		archivosalida = new FileOutputStream(path, true);
-		// archivosalida = new FileOutputStream("ejemplo.txt", false);  to add more data
 		salida = new ObjectOutputStream(archivosalida);
 	}
 	
-	public void abrirentrada() throws IOException {
+	public void openInput() throws IOException {
 		archivoentrada = new FileInputStream(path);
 		entrada = new ObjectInputStream(archivoentrada);
 	}
 	
-	public void cerrarsalida() throws IOException {
+	public void closeOutput() throws IOException {
 		if (salida!=null) {
 			archivosalida.close();
 			salida.close();
 		} 
 	}
 	
-	public void cerrarentrada() throws IOException {
+	public void closeInput() throws IOException {
 		if (entrada!=null) entrada.close();
 	}
 	
 	public void saveObject(T d) throws IOException {
-    abrirsalida();
+    openOutput();
 		if (salida!=null) salida.writeObject(d);
-    cerrarsalida();
+    closeOutput();
 	}
 }
