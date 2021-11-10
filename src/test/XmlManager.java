@@ -3,26 +3,31 @@ import java.io.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.NamedNodeMap;
 
 public class XmlManager {
-   static public void main(String[] argv) throws ParserConfigurationException, IOException, SAXException {
+   static public void main(String[] argv) throws ParserConfigurationException, IOException, SAXException, Exception {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-      factory.setValidating(true);
+      factory.setValidating(false);
       factory.setIgnoringElementContentWhitespace(true);
       DocumentBuilder builder = factory.newDocumentBuilder();
       File file = new File("./test.xml");
       Document doc = builder.parse(file);
 
+      // saveData(doc);
       // printElements(doc);
-      printElementAttributes(doc);
-      // Do something with the document here.
+      readData(doc);
    }
 
    static void printElements(Document doc) {
@@ -37,32 +42,60 @@ public class XmlManager {
       System.out.println();
    }
 
-   static void printElementAttributes(Document doc) {
-      NodeList nl = doc.getElementsByTagName("*");
-      Element e;
-      Node n;
-      NamedNodeMap nnm;
+   static void readData(Document doc) {
+      NodeList objects = doc.getElementsByTagName("person");
+      Element elem;
+      int len;
 
-      String attrname;
-      String attrval;
-      int i, len;
+      len = objects.getLength();
+      elem = (Element) objects.item(len - 1);
 
-      len = nl.getLength();
+      NodeList features = elem.getChildNodes();
 
-      for (int j=0; j < len; j++) {
-         e = (Element)nl.item(j);
-         System.out.println(e.getTagName() + ":");
-         nnm = e.getAttributes();
+      len = features.getLength();
 
-         if (nnm != null) {
-            for (i=0; i<nnm.getLength(); i++) {
-               n = nnm.item(i);
-               attrname = n.getNodeName();
-               attrval = n.getNodeValue();
-               System.out.print(" " + attrname + " = " + attrval);
-            }
+      for (int i=0; i < len; i++) {
+         Node node = features.item(i);
+
+         if (node.getNodeType() == Node.ELEMENT_NODE) {
+            elem = (Element) node;
+
+            System.out.println(elem.getTagName() + " : " + elem.getTextContent());
          }
-         System.out.println();
       }
+   }
+
+   static void saveData(Document doc) throws Exception {
+      Element element = doc.getDocumentElement();
+
+      Node node = doc.createElement("person");
+
+      Node nom = doc.createElement("name");
+      nom.setTextContent("Juan");
+
+      Node lastN = doc.createElement("lastName");
+      lastN.setTextContent("Romero");
+
+      node.appendChild(nom);
+      node.appendChild(lastN);
+
+      element.appendChild(node);
+
+      replaceOldFile(doc);
+   }
+
+   public static void replaceOldFile(Document xml) throws Exception {
+      Transformer tf = TransformerFactory.newInstance().newTransformer();
+      tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+      tf.setOutputProperty(OutputKeys.INDENT, "yes");
+
+      Writer out = new StringWriter();
+      tf.transform(new DOMSource(xml), new StreamResult(out));
+
+      String allFile = out.toString();
+
+      FileWriter file = new FileWriter("./test.xml"); 
+      file.write(allFile);
+      file.close();
    }
 }
